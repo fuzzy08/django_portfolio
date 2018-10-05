@@ -1,21 +1,21 @@
 <!doctype html>
 <html lang="en">
+{% load staticfiles %}
   <head>
-    <title>Zachary Quinn</title>
-    {% load staticfiles %}
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"  rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
+    <title>Zach's Blog</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="album.css" rel="stylesheet"/>
+    <link href="album.css" rel="stylesheet">
   </head>
 
   <body>
@@ -30,42 +30,36 @@
           <div class="navbar-nav ml-auto">
             <a class="nav-item nav-link" href="https://github.com/fuzzylittlemanpeach8" target="_blank">Github</a>
             <a class="nav-item nav-link" href="{% static 'resume.pdf' %}" target="_blank">Resume</a>
-            <a class="nav-item nav-link" href="{% url 'blog/allblogs' %}" target="_blank">Blog</a>
+            <a class="nav-item nav-link active" href="{% url 'blog/allblogs' %}" target="_blank">Blog</a>
           </div>
         </div>
       </nav>
     </header>
 
     <main role="main">
+      <div class="container">
 
-      <section class="jumbotron text-center">
-        <div class="container">
-          <h1 class="jumbotron-heading">Hi, I'm Zach</h1>
-          <p class="lead text-muted">Hey, my name is Zachary Quinn, and this is my first Django website.</p>
-          <p>
-            <a href="mailto:zachquinn08@gmail.com" class="btn btn-primary my-2">Contact Me</a>
-          </p>
+      <h1 class="text-center pt-3">Blog</h1>
+      <br/>
+      <br/>
+      <h2 class="">Lastest Post</h2>
+      <hr>
+      {% for blog in blogs.all %}
+      <div class="row">
+        <div class="col-sm-4 shadow">
+          <a href="{% url 'detail' blog.id %}" style="text-decoration: none">
+          <h3> <span style="color: black;"> {{ blog.title }} </span>- <span class="text-muted lead">{{ blog.pub_date }}</span></h3>
+          <img class="img-fluid m-1" src="{{ blog.image.url }}" alt="">
+        </a>
         </div>
-      </section>
+        <div class="col-sm-8 p-4">
+          <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;{{ blog.summary }}</p>
 
-      <div class="album py-5 bg-light">
-        <div class="container">
-
-          <div class="row">
-            {% for job in jobs.all %}
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" style="height: 190px;" src="{{ job.image.url }}" />
-                <div class="card-body">
-                  <p class="card-text">{{ job.summary }}</p>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
         </div>
       </div>
-
+      <hr>
+      {% endfor %}
+    </div>
 
     </main>
 
