@@ -135,7 +135,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
+#placed at the bottom to overwrite above settings
 try:
     from local_settings import *
 except ImportError:
-    pass
+    pass:
